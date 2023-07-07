@@ -1,4 +1,18 @@
 def add(x,y):
-    print(f"{x} + {y} = {x+y}")
+    """
+    
+    :param x:
+    :param y:
+    :return:
+    """
+    return x+y
 
-add(1,2)
+r = add(1,2)
+print(r)
+
+def say_hi():
+    print("hi")
+
+result = say_hi()
+print(f"无返回值函数，返回的内容是：{result}")
+print(f"无返回值函数，返回的内容类型是：{type(result)}")
