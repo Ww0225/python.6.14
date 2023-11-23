@@ -1,23 +1,23 @@
-# 给定一个候选人编号的集合 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
-# candidates 中的每个数字在每个组合中只能使用 一次 。
-# 注意：解集不能包含重复的组合。
+# 找出所有相加之和为 n 的 k 个数的组合，且满足下列条件：
+# 只使用数字1到9
+# 每个数字 最多使用一次
+# 返回 所有可能的有效组合的列表 。该列表不能包含相同的组合两次，组合可以以任何顺序返回。
 class Solution:
-    def combinationSum2(self, candidates: list[int], target: int) -> list[list[int]]:
-        def backtrack(state,target,choices,start,res):
-            if target == 0:
-                res.append(list(state))
+    def combinationSum3(self, k: int, n: int) -> list[list[int]]:
+        ans = []
+        path = []
+
+        def dfs(i,t):
+            d = k - len(path)
+            if t < 0 or t > (i*2-d+1)*d//2:
                 return
-            for i in range(start,len(choices)):
-                if target - choices[i] < 0:
-                    break
-                if i > start and choices[i] == choices[i-1]:
-                    continue
-                state.append(choices[i])
-                backtrack(state,target-choices[i],choices,i+1,res)
-                state.pop()
-        state = []
-        res = []
-        start = 0
-        candidates.sort()
-        backtrack(state,target,candidates,start,res)
-        return res
+            if len(path) == k:
+                ans.append(path.copy())
+                return
+            for j in range(i,0,-1):
+                path.append(j)
+                dfs(j-1,t-j)
+                path.pop()
+
+        dfs(9,n)
+        return ans
